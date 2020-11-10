@@ -811,7 +811,11 @@ class Response
                 continue;
             }
             $attributeKeyName = $attributeKeyNode->nodeValue;
-            $attributeValues = array();
+            if (isset($attributes[$attributeKeyName])) {
+                $attributeValues = (array)$attributes[$attributeKeyName];
+            } else {
+                $attributeValues = array();
+            }
             foreach ($entry->childNodes as $childNode) {
                 $tagName = ($childNode->prefix ? $childNode->prefix.':' : '') . 'AttributeValue';
                 if ($childNode->nodeType == XML_ELEMENT_NODE && $childNode->tagName === $tagName) {
